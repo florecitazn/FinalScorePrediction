@@ -1,0 +1,43 @@
+{
+    "target": "Final_Score",
+    "best_scenario": "60-20-20",
+    "raw_input_features": [
+        "Age",
+        "Gender",
+        "Hours_Studied",
+        "Attendance",
+        "Sleep_Hours",
+        "Stress_Level",
+        "Screen_Time",
+        "Previous_GPA",
+        "Part_Time_Job",
+        "Study_Method",
+        "Diet_Quality",
+        "Internet_Quality",
+        "Extracurricular",
+        "Tutoring_Sessions_Per_Week",
+        "Family_Income_Level",
+        "Exam_Anxiety_Score"
+    ],
+    "numerical_features": [
+        "Age",
+        "Hours_Studied",
+        "Attendance",
+        "Sleep_Hours",
+        "Stress_Level",
+        "Screen_Time",
+        "Previous_GPA",
+        "Tutoring_Sessions_Per_Week",
+        "Exam_Anxiety_Score"
+    ],
+    "categorical_features": [
+        "Gender",
+        "Part_Time_Job",
+        "Study_Method",
+        "Diet_Quality",
+        "Internet_Quality",
+        "Extracurricular",
+        "Family_Income_Level"
+    ],
+    "model_input_shape": 29
+}
