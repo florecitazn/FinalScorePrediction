@@ -270,7 +270,7 @@ class InfoPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // ── CARD 5: MODEL EVALUATION METRICS (COMING SOON) ──
+            // ── CARD 5: MODEL EVALUATION METRICS ──
             Card(
               color: Colors.white,
               elevation: 0,
@@ -306,17 +306,40 @@ class InfoPage extends StatelessWidget {
                       ],
                     ),
                     const Divider(height: 24),
-                    _buildComingSoonRow('MAE (Mean Absolute Error)'),
-                    _buildComingSoonRow('MSE (Mean Squared Error)'),
-                    _buildComingSoonRow('RMSE (Root Mean Squared Error)'),
-                    _buildComingSoonRow('R² (Coefficient of Determination)'),
+                    _buildInfoRow('R² (Coefficient of Determination)', '0.7480'),
+                    _buildInfoRow('MAE (Mean Absolute Error)', '5.0575'),
+                    _buildInfoRow('RMSE (Root Mean Squared Error)', '6.3799'),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: primaryLight,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.info_outline, color: primaryTeal, size: 16),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'R² = 0.7480 means the model explains 74.8% of the variance in the data.',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey[700],
+                                height: 1.4,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
 
-            // ── CARD 6: TRAINING GRAPH (COMING SOON) ──
+            // ── CARD 6: TRAINING GRAPH ──
             Card(
               color: Colors.white,
               elevation: 0,
@@ -342,7 +365,7 @@ class InfoPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         const Text(
-                          'Training Graph',
+                          'Training History',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
@@ -352,14 +375,23 @@ class InfoPage extends StatelessWidget {
                       ],
                     ),
                     const Divider(height: 24),
-                    _buildComingSoonCenter('Loss & MAE visualization will be displayed here.'),
+                    _buildResponsiveImage('assets/images/training_model.png'),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Training Loss and MAE visualization over epochs',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
 
-            // ── CARD 7: CONFUSION MATRIX (COMING SOON) ──
+            // ── CARD 7: CORRELATION HEATMAP ──
             Card(
               color: Colors.white,
               elevation: 0,
@@ -381,11 +413,11 @@ class InfoPage extends StatelessWidget {
                             color: primaryLight,
                             borderRadius: BorderRadius.circular(7),
                           ),
-                          child: Icon(Icons.grid_on, color: primaryTeal, size: 16),
+                          child: Icon(Icons.bubble_chart, color: primaryTeal, size: 16),
                         ),
                         const SizedBox(width: 10),
                         const Text(
-                          'Confusion Matrix',
+                          'Feature Correlation Heatmap',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
@@ -395,50 +427,16 @@ class InfoPage extends StatelessWidget {
                       ],
                     ),
                     const Divider(height: 24),
-                    _buildComingSoonCenter('Confusion matrix visualization will be displayed here.'),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // ── CARD 8: TESTING GRAPH (COMING SOON) ──
-            Card(
-              color: Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: Colors.grey.withOpacity(0.15)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: primaryLight,
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: Icon(Icons.timeline, color: primaryTeal, size: 16),
-                        ),
-                        const SizedBox(width: 10),
-                        const Text(
-                          'Testing Graph',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF26A69A),
-                          ),
-                        ),
-                      ],
+                    _buildResponsiveImage('assets/images/heatmap.png'),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Shows correlation between numerical features and target variable (Final Score)',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                    const Divider(height: 24),
-                    _buildComingSoonCenter('Testing results visualization will be displayed here.'),
                   ],
                 ),
               ),
@@ -450,6 +448,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
+  // ── HELPER: BUILD INFO ROW ──
   Widget _buildInfoRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -479,86 +478,55 @@ class InfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildComingSoonRow(String label) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(color: Colors.grey[700], fontSize: 13),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+  // ── HELPER: BUILD RESPONSIVE IMAGE ──
+  Widget _buildResponsiveImage(String assetPath) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        assetPath,
+        width: double.infinity,
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: 200,
+            width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color(0xFF26A69A).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey[300]!),
             ),
-            child: const Text(
-              'Coming Soon',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF26A69A),
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.image_not_supported,
+                  size: 48,
+                  color: Colors.grey[400],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Image not found',
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  assetPath,
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 10,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildComingSoonCenter(String message) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF26A69A).withOpacity(0.03),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: const Color(0xFF26A69A).withOpacity(0.1),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            Icons.construction,
-            size: 40,
-            color: Colors.grey[400],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            message,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[500],
-              fontWeight: FontWeight.w400,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF26A69A).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Text(
-              'Coming Soon',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF26A69A),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
+  // ── HELPER: BUILD CATEGORY ROW ──
   Widget _buildCategoryRow(String label, List<String> categories, Color primaryColor) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -600,6 +568,7 @@ class InfoPage extends StatelessWidget {
     );
   }
 
+  // ── HELPER: BUILD CHIP ROW ──
   Widget _buildChipRow(List<String> items) {
     return Wrap(
       spacing: 4,
