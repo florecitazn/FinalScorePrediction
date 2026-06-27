@@ -270,7 +270,7 @@ class InfoPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // ── CARD 5: MODEL EVALUATION METRICS ──
+            // ── CARD 5: MODEL EVALUATION METRICS (UPDATED) ──
             Card(
               color: Colors.white,
               elevation: 0,
@@ -306,9 +306,10 @@ class InfoPage extends StatelessWidget {
                       ],
                     ),
                     const Divider(height: 24),
-                    _buildInfoRow('R² (Coefficient of Determination)', '0.7480'),
-                    _buildInfoRow('MAE (Mean Absolute Error)', '5.0575'),
-                    _buildInfoRow('RMSE (Root Mean Squared Error)', '6.3799'),
+                    _buildInfoRow('R² (Coefficient of Determination)', '0.7566'),
+                    _buildInfoRow('MAE (Mean Absolute Error)', '4.8983'),
+                    _buildInfoRow('MSE (Mean Squared Error)', '39.3036'),
+                    _buildInfoRow('RMSE (Root Mean Squared Error)', '6.2693'),
                     const SizedBox(height: 8),
                     Container(
                       padding: const EdgeInsets.all(10),
@@ -322,7 +323,7 @@ class InfoPage extends StatelessWidget {
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'R² = 0.7480 means the model explains 74.8% of the variance in the data.',
+                              'R² = 0.7566 means the model explains 75.66% of the variance in the data.',
                               style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.grey[700],
